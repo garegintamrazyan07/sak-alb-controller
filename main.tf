@@ -1,5 +1,6 @@
 data "aws_region" "current" {}
 
+
 # Create namespace ingress-system
 resource "kubernetes_namespace" "alb-ingress-system" {
   depends_on = [
@@ -283,17 +284,17 @@ resource "kubernetes_ingress" "alb-dev-ingress" {
     name      = "alb-ingress"
     namespace = "default"
     annotations = {
-      "alb.ingress.kubernetes.io/certificate-arn"      = join(", ", var.certificates_arns)
-      "alb.ingress.kubernetes.io/healthcheck-path"     = "/health"
-      "alb.ingress.kubernetes.io/healthcheck-protocol" = "HTTP"      
-      "alb.ingress.kubernetes.io/scheme"               = "internet-facing"
-      "alb.ingress.kubernetes.io/group.name"           = "default"
-      "alb.ingress.kubernetes.io/group.order"          = "100"
-      "alb.ingress.kubernetes.io/ssl-policy"           = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
-      "alb.ingress.kubernetes.io/listen-ports"         = "[{\"HTTP\":80}, {\"HTTPS\":443}]"
-      "alb.ingress.kubernetes.io/actions.ssl-redirect" = "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}"
+      "alb.ingress.kubernetes.io/certificate-arn"              = join(", ", var.certificates_arns)
+      "alb.ingress.kubernetes.io/healthcheck-path"             = "/health"
+      "alb.ingress.kubernetes.io/healthcheck-protocol"         = "HTTP"
+      "alb.ingress.kubernetes.io/scheme"                       = "internet-facing"
+      "alb.ingress.kubernetes.io/group.name"                   = "default"
+      "alb.ingress.kubernetes.io/group.order"                  = "100"
+      "alb.ingress.kubernetes.io/ssl-policy"                   = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
+      "alb.ingress.kubernetes.io/listen-ports"                 = "[{\"HTTP\":80}, {\"HTTPS\":443}]"
+      "alb.ingress.kubernetes.io/actions.ssl-redirect"         = "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}"
       "alb.ingress.kubernetes.io/actions.fixed-response-error" = "{\"Type\": \"fixed-response\", \"FixedResponseConfig\": {\"ContentType\":\"text/plain\", \"StatusCode\":\"503\", \"MessageBody\":\"503 error\"}}"
-      "kubernetes.io/ingress.class"                    = "alb"
+      "kubernetes.io/ingress.class"                            = "alb"
     }
   }
 

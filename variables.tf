@@ -29,3 +29,9 @@ variable "certificates_arns" {
 variable "cluster_oidc_url" {
   type = string
 }
+
+variable "enable_cloudtrail_logging" {
+  type        = bool
+  description = "Enable cloudtrail by changing this to true"
+  default     = false
+}
